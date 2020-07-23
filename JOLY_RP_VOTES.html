@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JOLY RP</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+    </head>
+    <body style="background-color: black"> 
+
+        <h1>﻿𝐂𝐋𝐀𝐒𝐒𝐄𝐌𝐄𝐍𝐓 𝐕𝐎𝐓𝐄𝐒 𝐉𝐎𝐋𝐘 𝐑𝐏</h1>  
+        <img src="img/logo.png" id="img1">   
+        <img src="img/logo.png" id="img2">  
+        <table>
+            <thead>
+                <tr>
+                    <th>𝐏𝐒𝐄𝐔𝐃𝐎 </th>  
+
+                    <th>𝐕𝐎𝐓𝐄𝐒</th>
+                </tr>
+            </thead>
+            <tbody id="votesTableContent" style="color: red">
+            </tbody>
+        </table>
+        
+        <script>
+            var serverToken = "LK7MGLON8J"; // Renseignez la token de votre serveur présente sur votre fiche Top-Serveurs
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.top-serveurs.net/v1/servers/' + serverToken + '/players-ranking');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var responseContent = JSON.parse(xhr.responseText);
+                    var votesTableContent = '';
+                    responseContent.players.forEach(function(player) {
+                        votesTableContent += '<tr><td>' + player.playername + '</td><td>' + player.votes + '</td></tr>';
+                    });
+                    document.getElementById('votesTableContent').innerHTML = votesTableContent;
+                } else {
+                    alert('Erreur lors la récupération des données');
+                }
+            };
+            xhr.send();
+        </script>
+    </body>
+</html>
